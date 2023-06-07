@@ -6,50 +6,19 @@ module feet_and_bottom(
   gap, 
 ) {
 
-  // location of slits for lever
-  slit_x = (size - lever_width) / 2;
-  slit_y = - eps;
-
-  unit_height = size / 3;
+  unit_height = size / 2;
 
   union() {
-
-    // top 1/3
-    difference() {
-      translate([0, 0, 2 * size / 3]) square_column(size, size / 3, thickness);
-      translate([slit_x, slit_y, size - 15 + tolerance]) {
-        cube([lever_width, thickness + 2 * tolerance, 15]);
-      }
-    }
+    translate([0, 0, unit_height]) square_column(size, unit_height, thickness);
     translate([0, 0, size]) {
       corner_locks(size, 10, 3);
     }
 
-    // middle 1/3
-    translate([0, 0, size / 3]) middle_box(size, size, size / 3, thickness);
-    vshape(size, size, size / 3, size / 3, wall_thickness);
-    translate([0, 0, size / 3]) square_column(size, size / 3, thickness);
-
-    // bottom 1/3
-    translate([size / 2, size, 0]) back_plate(size, size / 3, thickness);
-    vshape(size, size, size / 3, 0, wall_thickness);
-
-    // legs
-    translate([0, 0, size / 6]) {
-      round_stick(5, [-size / 6, -size / 6, -size / 2], [size / 6, size / 6, 0]);
-      translate([0, size, 0]) mirror([0, 1, 0]) round_stick(5, [-size / 6, -size / 6, -size / 2], [size / 6, size / 6, 0]);
-    }
-
-    translate([size, 0, 0])
-    mirror([1, 0, 0])
-    translate([0, 0, size / 6]) {
-      round_stick(5, [-size / 6, -size / 6, -size / 2], [size / 6, size / 6, 0]);
-      translate([0, size, 0]) mirror([0, 1, 0]) round_stick(5, [-size / 6, -size / 6, -size / 2], [size / 6, size / 6, 0]);
-    }
+    // opening
+    opening(size, unit_height, thickness);
 
   }
 }
-
 
 module square_column(size, height, thickness) {
   difference() {
@@ -133,67 +102,26 @@ module tapered_box(bottom_size, top_size, height) {
   polyhedron(points, faces);
 }
 
-module vshape(width, depth, z1, z2, thickness) {
-  w = width / 2;
-  points = [
-    [0, depth, z2], 
-    [-w, depth, z1 + z2], 
-    [-w, 0, z1], 
-    [0, 0, 0], 
-    [0, depth, z2 + thickness], 
-    [-w, depth, z1 + z2 + thickness], 
-    [-w, 0, z1 + thickness], 
-    [0, 0, thickness], 
-  ];
-
-  faces = [
-    [0,1,2,3],  // bottom
-    [4,5,1,0],  // front
-    [7,6,5,4],  // top
-    [5,6,2,1],  // right
-    [6,7,3,2],  // back
-    [7,4,0,3]]; // left
-
-  translate([w, 0, 0]) {
-    polyhedron(points, faces);
-    mirror([1, 0, 0])polyhedron(points, faces);
+module opening(width, height, thickness) {
+  translate([0, width, height])
+  rotate(-90, [0, 0, 1]) 
+  rotate(-90, [1, 0, 0])
+  difference() {
+    union() { 
+      right_triangle_box(width, height, width);
+      rotate(90, [1, 0, 0]) square_column(width, thickness, 10 * thickness); 
+    }
+    translate([-thickness, -eps - thickness, thickness]) right_triangle_box(width, height, width - 2 * thickness);
   }
 }
 
-module middle_box(width, depth, height, thickness) {
+module right_triangle_box(width, depth, height) {
   points = [
     [0, 0],
-    [depth, height],
-    [0, height],
+    [width, 0],
+    [0, depth],
   ];
-
-  difference() {
-    rotate(90, [0, 1, 0]) {
-      rotate(90, [0, 0, 1]) {
-        linear_extrude(width) polygon(points, [[0, 1, 2]]);
-      }
-    }
-    translate([thickness, thickness, -eps]) {
-      cube([width - 2 * thickness, depth - 2 * thickness, height + 2 * eps]);
-    }
-  }
-}
-
-module back_plate(width, depth, thickness) {
-  w = width / 2;
-  points = [
-    [0, 0], 
-    [-w, depth], 
-    [w, depth], 
-  ];
-  rotate(90, [1, 0, 0]) linear_extrude(thickness) polygon(points, [[0, 1, 2]]);
-}
-
-module round_stick(radius, start_point, end_point) {
-  hull() {
-    translate(start_point) sphere(radius, $fn=24);
-    translate(end_point) sphere(radius, $fn=24);
-  }
+  linear_extrude(height) polygon(points);
 }
 
 feet_and_bottom(box_size, wall_thickness, 1);

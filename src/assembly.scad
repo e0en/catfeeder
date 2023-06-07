@@ -47,4 +47,4 @@ union() {
 }
 
 
-translate([box_size, box_size, -box_size]) rotate(180, [0, 0, 1])feet_and_bottom(box_size, 1.5, 1);
+translate([0, 0, -box_size]) feet_and_bottom(box_size, 1.5, 1);
