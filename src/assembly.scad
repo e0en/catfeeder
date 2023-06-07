@@ -14,35 +14,10 @@ module assembly(size, thickness, gap, hinge_radius) {
 
 }
 
-translate([0, 0, 2 * (box_size + tolerance)]) {
-  union() {
-    assembly(box_size, 1.5, 1, 2);
-    translate([box_size + 2, box_size, 5]) {
-      rotate(90, [0, 0, 1]) {
-        // servo(-180 -$t * 90);
-      }
-    }
-  }
-}
-
-translate([0, 0, box_size + tolerance]) {
-  union() {
-    assembly(box_size, 1.5, 1, 2);
-    translate([box_size + 2, box_size, 5]) {
-      rotate(90, [0, 0, 1]) {
-        // servo(-180 -$t * 90);
-      }
-    }
-  }
-}
-
-
 union() {
   assembly(box_size, 1.5, 1, 2);
-  translate([box_size + 2, box_size, 5]) {
-    rotate(90, [0, 0, 1]) {
-      // servo(-180 -$t * 90);
-    }
+  translate([box_size / 2 + 6, box_size, 23 + 5 + 1.5]) {
+    rotate(180, [0, 1, 0]) servo(-180 -$t * 90);
   }
 }
 
