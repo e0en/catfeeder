@@ -10,27 +10,12 @@ module container(
 
   // hinge rotates along this line
   hinge_axis_y = hinge_radius + gap + thickness;
-  hinge_axis_z = hinge_radius + lever_length;
-
-  // location of slits for lever
-  slit_x = (size - lever_width) / 2;
-  slit_y = size - 2 * gap - eps;
+  hinge_axis_z = hinge_radius + 1.0;
 
   union() {
 
     difference() {
       square_column(size, thickness);
-
-
-      // bottom 
-      translate([slit_x, slit_y, -tolerance]) {
-        cube([lever_width, thickness + 2 * tolerance, 15]);
-      }
-
-      // top
-      translate([slit_x, slit_y, size - 15 + tolerance]) {
-        cube([lever_width, thickness + 2 * tolerance, 15]);
-      }
 
       // "right" hinge joint
       translate([thickness + hinge_radius / 2, hinge_axis_y, hinge_axis_z]) {
@@ -47,8 +32,8 @@ module container(
       corner_locks(size, 10, 3);
     }
 
-     // todo: add a servo motor mount
-     translate([slit_x + lever_width + 6, size, 3]) {
+    // TODO: fix position & orientation
+    translate([0 + lever_width + 6, size, 3]) {
       translate([0, 0, -tolerance]) servo_mount_unit();
        translate([0, 0, 23 + 4]) {
         mirror([0, 0, 1]) servo_mount_unit();
