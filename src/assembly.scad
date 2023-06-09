@@ -1,14 +1,17 @@
-include<parameters.scad>
-use<container.scad>
-use<floor.scad>
-use<servo.scad>
-use<bottom.scad>
+include <BOSL2/std.scad>
+include <parameters.scad>
+
+use <container.scad>
+use <hinged_floor.scad>
+use <servo.scad>
+use <bottom.scad>
+use <lid.scad>
 
 module assembly(size, thickness, gap, hinge_radius) {
   container(size, thickness, gap, hinge_radius);
-  floor_offset = thickness + gap;
-
-  translate([floor_offset, floor_offset, 15]) {
+  hinge_axis_y = -size / 2 + hinge_radius / 2 + gap + thickness;
+  hinge_axis_z = hinge_radius + 1.0;
+  translate([0, hinge_axis_y, hinge_axis_z]) {
     hinged_floor(size, thickness, gap, hinge_radius);
   }
 
@@ -16,10 +19,11 @@ module assembly(size, thickness, gap, hinge_radius) {
 
 union() {
   assembly(box_size, 1.5, 1, 2);
-  translate([box_size / 2 + 6, box_size, 23 + 5 + 1.5]) {
+  translate([6, box_size / 2, 23 + 5 + 1.5]) {
     rotate(180, [0, 1, 0]) servo(-180 -$t * 90);
   }
 }
 
 
-translate([0, 0, -box_size]) feet_and_bottom(box_size, 1.5, 1);
+down(box_size) feet_and_bottom(box_size, 1.5, 1);
+up(box_size + 1) lid(box_size, 2);

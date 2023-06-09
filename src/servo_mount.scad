@@ -1,10 +1,9 @@
-include<parameters.scad>
+include <BOSL2/std.scad>
+include <parameters.scad>
 
 module servo_mount_unit() {
-   servo_mount(5);
-   translate([5 + 3.5, 0, 0]) {
-     servo_mount(11);
-   }
+  servo_mount(5);
+  right(5 + 3.5) servo_mount(5);
 }
 
 module servo_mount(width) {
@@ -22,9 +21,7 @@ module servo_mount(width) {
     [servo_thickness, thickness],
     [0, thickness],
   ];
-  rotate(90, [1, 0, 0]) {
-    rotate(90, [0, 1, 0]) {
-    linear_extrude(width, center=false) polygon(points);
-    }
-  }
+  xrot(90) yrot(90) linear_extrude(width, center=false) polygon(points);
 }
+
+servo_mount_unit();

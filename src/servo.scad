@@ -1,4 +1,4 @@
-include<parameters.scad>
+include <parameters.scad>
 
 module servo(arm_angle=0) {
   long_side = 23;
