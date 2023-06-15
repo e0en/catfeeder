@@ -37,7 +37,7 @@ module bottom_part(
 
           }
           up(thickness/2) cube([size, size, thickness], center=true); // bottom
-          up(size) corner_locks(size, 10, 3);
+          up(size) corner_locks(size, 5, 3);
           up(size / 4 + thickness) wedge([size, size, size / 2], orient=UP, center=true);
         }
 

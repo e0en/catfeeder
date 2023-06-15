@@ -30,7 +30,7 @@ module container(
           }
         }
 
-        up(size) corner_locks(size, 10, 3);
+        up(size) corner_locks(size, 5, 3);
 
         // TODO: fix position & orientation
         back(size / 2)
