@@ -4,7 +4,7 @@ include <parameters.scad>
 use <container.scad>
 use <hinged_floor.scad>
 use <servo.scad>
-use <bottom.scad>
+use <bottom_part.scad>
 use <lid.scad>
 
 module assembly(size, thickness, gap, hinge_radius) {
@@ -25,5 +25,5 @@ union() {
 }
 
 
-down(box_size) feet_and_bottom(box_size, 1.5, 1);
+down(box_size) bottom_part(box_size, wall_thickness);
 up(box_size + 1) lid(box_size, 2);
