@@ -1,6 +1,7 @@
 include <BOSL2/std.scad>
 include <parameters.scad>
 use <corner_locks.scad>
+use <leg.scad>
 
 module bottom_part(
   size, 
@@ -25,8 +26,17 @@ module bottom_part(
     down(size / 2) {
       difference() {
         union() {
-          rect_tube(size=size, wall=thickness, h=size);
-          up(thickness/2) cube([size, size, thickness], center=true);
+          rect_tube(size=size, wall=thickness, h=size) {
+            mirror_copy([0, 1, 0])
+              mirror_copy([1, 0, 0])
+                position(BACK+LEFT+BOTTOM)
+                  up(leg_joiner_size * 2)
+                   fwd(leg_joiner_size * 2)
+                    xrot(15)
+                      leg_attachment(leg_thickness, leg_joiner_size, anchor=BOTTOM, orient=BACK);
+
+          }
+          up(thickness/2) cube([size, size, thickness], center=true); // bottom
           up(size) corner_locks(size, 10, 3);
           up(size / 4 + thickness) wedge([size, size, size / 2], orient=UP, center=true);
         }
@@ -40,4 +50,4 @@ module bottom_part(
   }
 }
 
-bottom_part(box_size, wall_thickness, leg_thickness, leg_joiner_size) show_anchors();
+bottom_part(box_size, wall_thickness, leg_thickness, leg_joiner_size);

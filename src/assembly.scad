@@ -22,6 +22,6 @@ module assembly(size, thickness, gap, hinge_radius, anchor, spin, orient) {
 
 }
 
-bottom_part(box_size, wall_thickness)
+bottom_part(box_size, wall_thickness, leg_thickness, leg_joiner_size)
   attach(TOP)
     assembly(box_size, wall_thickness, floor_gap, hinge_radius, anchor=BOTTOM);

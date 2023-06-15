@@ -19,7 +19,8 @@ module leg(r, h, length, joiner_size, anchor, spin, orient) {
   
 }
 
-module leg_attachment(r, h, joiner_size, anchor, spin, orient) {
+module leg_attachment(h, joiner_size, anchor, spin, orient) {
+  r = joiner_size * 2;
   zrot(90)
     yrot(90)
       attachable(anchor, spin, orient, r=r, l=h) {
@@ -46,4 +47,4 @@ module dovetail_female(size, h) {
 
 leg(4, 12, 60, 6)
   attach([TOP])
-    leg_attachment(12, 12, 6, anchor=RIGHT);
+    leg_attachment(12, 6, anchor=RIGHT);
