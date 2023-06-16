@@ -22,23 +22,23 @@ module container(
       // dig a hinge hole as a ball shape, centered here.
       hinge_x = size / 2 - thickness - hinge_radius / 2;
 
-      union() {
-        difference() {
-          rect_tube(size=size, wall=thickness, h=size);
-          translate([0, hinge_axis_y, hinge_axis_z]) {
-            xflip_copy() left(hinge_x) sphere(hinge_radius, $fn=circle_edge);
+      diff() {
+        rect_tube(size=size, wall=thickness, h=size) {
+          position(BACK+BOTTOM) {
+            up(9)
+            right(3)
+            yrot(90)
+            servo_mount_unit(orient=BACK, anchor=BOTTOM+RIGHT);
+
+            tag("remove")
+            fwd(thickness + eps)
+              cube([40, thickness + 2 * eps, 4], anchor=BOTTOM+FRONT);
           }
         }
-
         up(size) corner_locks(size, 5, 3);
 
-        // TODO: fix position & orientation
-        back(size / 2)
-        translate([0 + lever_width + 6, size / 2, 3]) {
-          down(tolerance) servo_mount_unit();
-          up(23 + 4) {
-            mirror([0, 0, 1]) servo_mount_unit();
-          }
+        tag("remove") translate([0, hinge_axis_y, hinge_axis_z]) {
+          xflip_copy() left(hinge_x) sphere(hinge_radius, $fn=circle_edge);
         }
       }
     }
