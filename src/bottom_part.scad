@@ -25,26 +25,29 @@ module bottom_part(
 
     down(size / 2) {
       difference() {
-        union() {
-          rect_tube(size=size, wall=thickness, h=size) {
-            mirror_copy([0, 1, 0])
-              mirror_copy([1, 0, 0])
-                position(BACK+LEFT+BOTTOM)
-                  up(leg_joiner_size * 2)
-                   fwd(leg_joiner_size * 2)
-                    xrot(15)
-                      leg_attachment(leg_thickness, leg_joiner_size, anchor=BOTTOM, orient=BACK);
-
-          }
-          up(thickness/2) cube([size, size, thickness], center=true); // bottom
-          up(size) corner_locks(size, 5, 3);
-          up(size / 4 + thickness) wedge([size, size, size / 2], orient=UP, center=true);
+        rect_tube(size=size, wall=thickness, h=size) {
+          mirror_copy([0, 1, 0])
+            mirror_copy([1, 0, 0])
+              position(BACK+LEFT+BOTTOM)
+                up(leg_joiner_size * 2)
+                 fwd(leg_joiner_size * 2)
+                  xrot(15)
+                    leg_attachment(leg_thickness, leg_joiner_size, anchor=BOTTOM, orient=BACK);
         }
-
         translate(opening_origin)
           fwd(eps)
           cube([opening_width, thickness + eps * 2, opening_height]);
       }
+
+      up(thickness/2) cube([size, size, thickness], center=true); // bottom
+      up(size) corner_locks(size, 5, 3);
+
+      fwd(size / 2)
+      up(size / 2)
+      left(size / 2)
+        skew(azy=-atan(0.5))
+          cube([size, size, thickness]);
+
     }
     children();  // dummy
   }
