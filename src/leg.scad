@@ -45,6 +45,8 @@ module dovetail_female(size, h) {
   dovetail("female", slide=h, width=size * 2, height=size, chamfer=1);
 }
 
-leg(4, 12, 60, 6)
-  attach([TOP])
-    leg_attachment(12, 6, anchor=RIGHT);
+leg(leg_radius, leg_thickness, leg_length, leg_joiner_size);
+/*
+up(leg_length / 2 + leg_radius * 5 / 4)
+  leg_attachment(leg_thickness, leg_joiner_size);
+*/

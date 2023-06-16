@@ -16,4 +16,4 @@ module hinged_floor(outer_size, thickness, gap, hinge_radius) {
   }
 }
 
-hinged_floor(box_size, wall_thickness, 1, 2);
+hinged_floor(box_size, wall_thickness, floor_gap, hinge_radius);

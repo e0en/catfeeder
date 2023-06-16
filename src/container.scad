@@ -47,4 +47,4 @@ module container(
   }
 }
 
-container(box_size, wall_thickness, 1, 2) show_anchors();
+container(box_size, wall_thickness, floor_gap, hinge_radius);

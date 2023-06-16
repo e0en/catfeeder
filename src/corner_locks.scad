@@ -19,4 +19,4 @@ module corner_lock(size, height) {
   path_sweep2d(trapezoid(h=t, w2=height, ang=[30, 90], spin=90, anchor=BOTTOM), path);
 }
 
-corner_locks(60, 10, 3);
+corner_locks(box_size, 5, 3);
