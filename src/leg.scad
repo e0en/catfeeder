@@ -30,7 +30,7 @@ module leg_attachment(h, joiner_size, anchor, spin, orient) {
           diff() {
           left(r / 4) cuboid([d, d, h])
           attach([RIGHT])
-            tag("remove") dovetail_female(joiner_size, h);
+            tag("remove") dovetail_female(joiner_size, h, $slop=tolerance);
           }
         }
         children();  // dummy
