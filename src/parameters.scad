@@ -15,3 +15,10 @@ leg_length = 60;
 leg_radius = 4;
 leg_thickness = 10;
 leg_joiner_size = 5;
+
+
+// servo dimensions
+servo_long_side = 23;
+servo_short_side = 12;
+servo_thickness = 5;
+servo_arm_thickness = 1.5;

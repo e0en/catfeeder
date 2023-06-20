@@ -25,7 +25,7 @@ module container(
       diff() {
         rect_tube(size=size, wall=thickness, h=size) {
           position(BACK+BOTTOM) {
-            up(9)
+            up(10)
             right(3)
             yrot(90)
             servo_mount_unit(orient=BACK, anchor=BOTTOM+RIGHT);
