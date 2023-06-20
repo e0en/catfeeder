@@ -11,7 +11,7 @@ module assembly(size, thickness, gap, hinge_radius, anchor, spin, orient) {
   attachable(anchor, spin, orient, [size, size, size]) {
     union() {
       container(size, thickness, gap, hinge_radius)
-        position(BACK + BOTTOM) up(10 + tolerance) right(3) color([0, 0, 1]) servo(anchor=FRONT+TOP, orient=BOTTOM);
+        position(BACK + BOTTOM) up(9 + tolerance) right(5) color([0, 0, 1]) servo(anchor=FRONT+TOP, orient=BOTTOM);
       hinge_axis_y = -size / 2 + hinge_radius / 2 + gap + thickness;
       hinge_axis_z = -size / 2 + hinge_radius + 1.0;
       translate([0, hinge_axis_y, hinge_axis_z]) {

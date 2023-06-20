@@ -25,14 +25,14 @@ module container(
       diff() {
         rect_tube(size=size, wall=thickness, h=size) {
           position(BACK+BOTTOM) {
-            up(10)
-            right(3)
+            up(9)
+            right(5)
             yrot(90)
             servo_mount_unit(orient=BACK, anchor=BOTTOM+RIGHT);
 
             tag("remove")
             fwd(thickness + eps)
-              cube([40, thickness + 2 * eps, 4], anchor=BOTTOM+FRONT);
+              cube([40, thickness + 2 * eps, 3], anchor=BOTTOM+FRONT);
           }
         }
         up(size) corner_locks(size, 5, 3);
